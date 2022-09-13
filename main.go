@@ -11,6 +11,12 @@ import (
 
 func div(a, b float64) (ret float64, err error) {
 	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("My error:", err)
+			err = err.(error)
+		}
+	}()
+	defer func() {
 		fmt.Println("div defer", ret, err)
 		if err := recover(); err != nil {
 			fmt.Println("err in dev:", err)
