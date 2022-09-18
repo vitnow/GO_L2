@@ -1,71 +1,38 @@
 package main
 
-import "log"
-
-type Config struct {
-	Address string
-	Port    int
-}
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
-	log.Panicln(getConfig())
-}
+	var a, b, am int // Запрос значений у пользователя
+	fmt.Print("Введите минимальное значение min: ")
+	fmt.Scanln(&a)
+	fmt.Print("Введите минимальное значение max: ")
+	fmt.Scanln(&b)
+	fmt.Print("Введите количество элементов: ")
+	fmt.Scanln(&am)
+	ars := make([]int, am)
+	min := a
+	max := b
 
-//func div(a, b float64) (ret float64, err error) {
-//	defer func() {
-//		if e := recover(); e != nil {
-//			fmt.Println("My error:", err)
-//			err = e.(error)
-//		}
-//	}()
-//	defer func() {
-//		fmt.Println("div defer", ret, err)
-//		if err := recover(); err != nil {
-//			fmt.Println("err in dev:", err)
-//			panic(err)
-//		}
-//	}()
-//	if b == 0 {
-//		panic("divide by zero")
-//		return 0, errors.New("divide by zero")
-//	}
-//	return a / b, nil
-//
-//}
-//
-//func main() {
-//	defer func() {
-//		if err := recover(); err != nil {
-//			log.Println("We've got an error:", err)
-//		}
-//	}()
-//
-//	// 1. Задание
-//	res, err := div(1, 0)
-//	fmt.Println("div:", res, err)
-//
-//	// 2. Задание
-//
-//	fmt.Println("next exercise 2")
-//	time.Sleep(3 * time.Second)
-//
-//	numbers := []string{
-//		"one",
-//		"two",
-//		"three",
-//	}
-//	fmt.Println("My favorite number:", numbers[len(numbers)])
-//
-//	fmt.Println("next exercise 3")
-//	time.Sleep(3 * time.Second)
-//
-//	// 3. Задание
-//	for i := 0; i < 1000000; i++ {
-//		newFile, err := os.Create(fmt.Sprintf("%v.txt", i))
-//		if err != nil {
-//			log.Println("Not enough resources:", err)
-//			defer recover()
-//		}
-//		defer newFile.Close()
-//	}
-//}
+	for a := 1; a < am; a++ { //Генерация  и запись в массив сгенерированные значения
+		ars[a] = (rand.Intn(max-min) + min)
+
+	}
+	fmt.Println("Сгенерированный ряд значенией", ars)
+	time.Sleep(3 * time.Second)
+
+	for i := 1; i < len(ars); i++ { //Сортировка значений методом --Вставка
+		x := ars[i]
+		j := i
+		for ; j >= 1 && ars[j-1] > x; j-- {
+			ars[j] = ars[j-1]
+		}
+		ars[j] = x
+	}
+	fmt.Println("Отсортированный ряд значенией", ars)
+	time.Sleep(10 * time.Second)
+}
