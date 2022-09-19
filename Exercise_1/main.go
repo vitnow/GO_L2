@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Hello. My first doc
 func main() {
 	var a, b, am int // Запрос значений у пользователя
 	fmt.Print("Введите минимальное значение min: ")
